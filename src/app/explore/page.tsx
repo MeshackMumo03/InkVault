@@ -4,6 +4,7 @@ import ZineCard from '@/components/zine/ZineCard';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight } from 'lucide-react';
+import { Zine } from '../data';
 
 export default function ExplorePage() {
   const allZines = zines.slice(0, 8);
@@ -47,7 +48,7 @@ export default function ExplorePage() {
   );
 }
 
-function ExploreSection({ title, zines, viewAllLink }: { title: string, zines: typeof featuredZines, viewAllLink?: string }) {
+function ExploreSection({ title, zines, viewAllLink }: { title: string, zines: Zine[], viewAllLink?: string }) {
   return (
     <section className="mb-12">
       <div className="flex justify-between items-center mb-6">
@@ -63,8 +64,8 @@ function ExploreSection({ title, zines, viewAllLink }: { title: string, zines: t
         )}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8">
-        {zines.map((zine) => (
-          <ZineCard key={zine.id} zine={zine} />
+        {zines.map((zine, index) => (
+          <ZineCard key={`${zine.id}-${index}`} zine={zine} />
         ))}
       </div>
     </section>
