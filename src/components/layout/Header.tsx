@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookMarked, Home, PlusSquare, User, Menu, Compass } from 'lucide-react';
+import { BookMarked, Home, PlusSquare, User, Menu, Compass, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ export default function Header() {
     { href: '/', label: 'Home', icon: Home },
     { href: '/explore', label: 'Explore', icon: Compass },
     { href: '/create', label: 'Create', icon: PlusSquare },
+    { href: '/search', label: 'Search', icon: Search },
     { href: '/profile', label: 'Profile', icon: User },
   ];
 
