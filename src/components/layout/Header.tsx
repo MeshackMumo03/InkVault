@@ -14,13 +14,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 export default function Header() {
   const mainNavLinks = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/explore', label: 'Explore', icon: Compass },
-    { href: '/create', label: 'Create', icon: PlusSquare },
+    { href: '/', label: 'Home' },
+    { href: '/explore', label: 'Explore' },
+    { href: '/reading-list', label: 'My Library' },
   ];
 
   const mobileNavLinks = [
-    ...mainNavLinks,
+    { href: '/', label: 'Home', icon: Home },
+    { href: '/explore', label: 'Explore', icon: Compass },
+    { href: '/create', label: 'Create', icon: PlusSquare },
     { href: '/reading-list', label: 'Library', icon: Library },
     { href: '/profile', label: 'Profile', icon: User },
     { href: '/settings', label: 'Settings', icon: Settings },
@@ -67,7 +69,7 @@ export default function Header() {
             </Sheet>
         </div>
         
-        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex mx-auto">
+        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex flex-1">
           {mainNavLinks.map((link) => (
             <Link
               key={link.href}
@@ -79,10 +81,9 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button variant="ghost" size="icon">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Notifications</span>
+        <div className="flex items-center justify-end space-x-4">
+          <Button asChild>
+            <Link href="/create">New Post</Link>
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
