@@ -1,5 +1,6 @@
+
 import Link from 'next/link';
-import { BookMarked, Home, PlusSquare, User, Menu, Compass, Search, List } from 'lucide-react';
+import { BookMarked, Home, PlusSquare, User, Menu, Compass, Search, Library } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,11 +12,15 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 export default function Header() {
-  const navLinks = [
+  const mainNavLinks = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/explore', label: 'Explore', icon: Compass },
+    { href: '/reading-list', label: 'My Library', icon: Library },
+  ];
+
+  const mobileNavLinks = [
+    ...mainNavLinks,
     { href: '/create', label: 'Create', icon: PlusSquare },
-    { href: '/reading-list', label: 'Reading List', icon: List },
     { href: '/search', label: 'Search', icon: Search },
     { href: '/profile', label: 'Profile', icon: User },
   ];
@@ -33,7 +38,7 @@ export default function Header() {
         </div>
 
         <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
-          {navLinks.map((link) => (
+          {mainNavLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -59,7 +64,7 @@ export default function Header() {
                       <BookMarked className="h-6 w-6 text-primary" />
                       <span className="font-bold font-headline">InkVault</span>
                     </Link>
-                    {navLinks.map((link) => (
+                    {mobileNavLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
@@ -74,7 +79,10 @@ export default function Header() {
             </Sheet>
           </div>
           
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            <Button asChild>
+                <Link href="/create">Create New</Link>
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
