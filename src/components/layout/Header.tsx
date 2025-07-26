@@ -1,12 +1,13 @@
 
 import Link from 'next/link';
-import { BookMarked, Home, PlusSquare, User, Menu, Compass, Search, Library } from 'lucide-react';
+import { BookMarked, Home, PlusSquare, User, Menu, Compass, Search, Library, Settings, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
@@ -15,14 +16,14 @@ export default function Header() {
   const mainNavLinks = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/explore', label: 'Explore', icon: Compass },
-    { href: '/reading-list', label: 'My Library', icon: Library },
+    { href: '/create', label: 'Create', icon: PlusSquare },
   ];
 
   const mobileNavLinks = [
     ...mainNavLinks,
-    { href: '/create', label: 'Create', icon: PlusSquare },
-    { href: '/search', label: 'Search', icon: Search },
+    { href: '/reading-list', label: 'Library', icon: Library },
     { href: '/profile', label: 'Profile', icon: User },
+    { href: '/settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -37,7 +38,36 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
+        <div className="md:hidden">
+            <Sheet>
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle Menu</span>
+                </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                <nav className="flex flex-col gap-4 mt-8">
+                <Link href="/" className="flex items-center space-x-2 mb-4">
+                    <BookMarked className="h-6 w-6 text-primary" />
+                    <span className="font-bold font-headline">InkVault</span>
+                    </Link>
+                    {mobileNavLinks.map((link) => (
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        className="flex items-center gap-2 text-lg font-medium transition-colors hover:text-accent"
+                    >
+                        <link.icon className="h-5 w-5" />
+                        {link.label}
+                    </Link>
+                    ))}
+                </nav>
+            </SheetContent>
+            </Sheet>
+        </div>
+        
+        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex mx-auto">
           {mainNavLinks.map((link) => (
             <Link
               key={link.href}
@@ -49,57 +79,34 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="md:hidden">
-             <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                 <nav className="flex flex-col gap-4 mt-8">
-                   <Link href="/" className="flex items-center space-x-2 mb-4">
-                      <BookMarked className="h-6 w-6 text-primary" />
-                      <span className="font-bold font-headline">InkVault</span>
-                    </Link>
-                    {mobileNavLinks.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className="flex items-center gap-2 text-lg font-medium transition-colors hover:text-accent"
-                      >
-                        <link.icon className="h-5 w-5" />
-                        {link.label}
-                      </Link>
-                    ))}
-                 </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <Button asChild>
-                <Link href="/create">Create New</Link>
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage src="https://placehold.co/40x40" alt="@username" data-ai-hint="person smiling" />
-                    <AvatarFallback>CC</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuItem asChild>
-                    <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>Log out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+        <div className="flex flex-1 items-center justify-end space-x-2">
+          <Button variant="ghost" size="icon">
+            <Bell className="h-5 w-5" />
+            <span className="sr-only">Notifications</span>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src="https://placehold.co/40x40" alt="@username" data-ai-hint="person smiling" />
+                  <AvatarFallback>CC</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuItem asChild>
+                  <Link href="/profile">Profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                  <Link href="/reading-list">Reading List</Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                  <Link href="/profile">Settings</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Log out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
