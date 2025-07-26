@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookMarked, Home, PlusSquare, User, Menu } from 'lucide-react';
+import { BookMarked, Home, PlusSquare, User, Menu, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 export default function Header() {
   const navLinks = [
     { href: '/', label: 'Home', icon: Home },
+    { href: '/explore', label: 'Explore', icon: Compass },
     { href: '/create', label: 'Create', icon: PlusSquare },
     { href: '/profile', label: 'Profile', icon: User },
   ];
