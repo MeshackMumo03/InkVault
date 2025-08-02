@@ -23,4 +23,8 @@ public class ZineService {
     public void deleteZine(Long zineId) {
         repository.deleteById(zineId);
     }
+
+    public List<Zine> saveAll(List<Zine> zines) {
+        return repository.saveAll(zines);
+    }
 }
