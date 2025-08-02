@@ -9,6 +9,17 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    domains: [
+      'static.wikia.nocookie.net',
+      'encrypted-tbn1.gstatic.com',
+      'images.wallpaperscraft.com',
+      'encrypted-tbn0.gstatic.com',
+      'png.pngtree.com',
+      'www.wallart.com',
+      'encrypted-tbn0.gstatic.com',
+      'img.freepik.com',
+      'mindtheg.com'
+    ],
     remotePatterns: [
       {
         protocol: 'https',
